@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_register_form_inherit" model="ir.ui.view">
+            <field name="name">account.payment.register.form.inherit</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <!-- Customer requested to rename this field -->
+                <xpath expr="//field[@name='communication']" position="attributes">
+                    <attribute name="string">Payment Reference</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//group/group[@name='group1']/field[@name='journal_id']" position="before">
+                    <field name="company_id" string="Company"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="replace">
+                    <field name="line_ids"/>
+                    <field name="invoice_bill_ids">
+                        <tree editable="bottom">
+                        	<field name="partner_id" readonly="1"/>
+                        	<field name="account_move_ids" widget="many2many_tags" readonly="1"/>
+                        	<field name="customer_payment_method" attrs="{'column_invisible' : [('parent.payment_type','=','outbound')]}"/>
+                        	<field name="vendor_payment_method" attrs="{'column_invisible' : [('parent.payment_type','=','inbound')]}"/>
+                        	<field name="company_id" readonly="1"/>
+                        	<field name="company_ids" widget="many2many_tags" readonly="1"/>
+                        	<field name="total_amount" readonly="1"/>
+                        </tree>
+                        <form>
+                        	<group>
+                        	    <group>
+                        	    	<field name="partner_id" readonly="1"/>
+                        			<field name="account_move_ids" widget="many2many_tags" readonly="1"/>
+                        			<field name="customer_payment_method"/>
+                        	    </group>
+                        	    <group>
+                        	    	<field name="vendor_payment_method"/>
+                        			<field name="company_id" readonly="1"/>
+                        			<field name="company_ids" widget="many2many_tags" readonly="1"/>
+                        			<field name="total_amount" readonly="1"/>
+                        	    </group>
+                        	</group>
+                        </form>
+                    </field>
+                </xpath>
+                <xpath expr="//field[@name='payment_method_id']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

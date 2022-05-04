@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_knphde_res_partner_inherit" model="ir.ui.view">
+        <field name="name">view.knphde.res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_payment_term_id']" position="before">
+                <field name="customer_payment_method"/>
+            </xpath>
+            <xpath expr="//field[@name='property_supplier_payment_term_id']" position="before">
+                <field name="vendor_payment_method"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_knphde_res_company_inherit" model="ir.ui.view">
+		<field name="name">view.knphde.res.company.inherit</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='parent_id']" position="after">
+				<field name="discount_account_id"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

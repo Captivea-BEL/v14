@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_knphde_account_move_inherit" model="ir.ui.view">
+        <field name="name">view.knphde.account.move.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" string="Cancel" type="object"
+                                invisible="1"/>
+            </xpath>
+            <xpath expr="//form/header/button[@name='mark_as_sent']" position="before">
+                <button name="action_reverse_entry" string="Reverse Entry" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='move_id']" position="after">
+                <field name="intercompany_move_ids" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="view_knphde_account_move_line_inherit" model="ir.ui.view">
+        <field name="name">view.knphde.account.move.line.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after">
+                <field name="payment_term_discount_inclusion"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group[2]/field[@name='account_id']" position="after">
+				<field name="payment_term_discount_inclusion"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='amount_currency']" position="before">
+				<field name="payment_term_discount_inclusion" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='purchase_vendor_bill_id']" position="after">
+            	<field name="days" string="Days"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_residual']" position="after">
+            	<field name="due_today" string="Due Today"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
