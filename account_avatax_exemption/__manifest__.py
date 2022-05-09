@@ -8,7 +8,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sodexis, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["website", "product", "queue_job", "account_avatax_exemption_base"],
+    "depends": ["website", "product", "account_avatax_exemption_base"],
     "data": [
         "security/ir.model.access.csv",
         "data/cron.xml",
